@@ -20,7 +20,23 @@ class BankVault {
     
 }
 
+protocol ProvideAccess {
+    func allowEntryWithPassword(password: [Int]) -> Bool
+}
 
-
-
+extension BankVault: ProvideAccess {
+    func allowEntryWithPassword(password: [Int]) -> Bool {
+        if 1...10 ~= password.count {
+            for index in stride(from: 0, to: password.count, by: 2) {
+                if password[index] % 2 != 0 {
+                    return false
+                }
+            }
+            return true
+        } else {
+            return false
+        }
+        
+    }
+}
 
